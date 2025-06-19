@@ -14,8 +14,7 @@ public class ProdutoCriaUseCaseImpl implements ProdutoCriaUseCase {
     @Override
     public Long criaProduto(Produto produto) {
 
-        Long id = produtoGateway.criar(produto);
+        return produtoGateway.criar(produto);
 
-        return id;
     }
 }

@@ -6,6 +6,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Optional;
+
 @Service
 @RequiredArgsConstructor
 public class ProdutoJpaGateway implements ProdutoGateway {
@@ -32,7 +34,8 @@ public class ProdutoJpaGateway implements ProdutoGateway {
     @Override
     public Produto recuperaPorSku(String sku) {
 
-        ProdutoEntity produtoEntity = produtoRepository.findBySku(sku);
+        ProdutoEntity produtoEntity = produtoRepository.findBySku(sku)
+                .orElseThrow(() -> new ProdutoNaoEncontradoException("Produto nao encontrado"));
 
         return new Produto(
                 produtoEntity.getId(),

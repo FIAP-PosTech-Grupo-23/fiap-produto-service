@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
-public class ProdutoCreateUseCaseImpl implements ProdutoCreateUseCase{
+public class ProdutoCriaUseCaseImpl implements ProdutoCriaUseCase {
 
     private final ProdutoGateway produtoGateway;
 

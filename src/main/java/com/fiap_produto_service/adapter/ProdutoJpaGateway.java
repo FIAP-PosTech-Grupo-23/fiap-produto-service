@@ -6,6 +6,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.UUID;
+
 @Service
 @RequiredArgsConstructor
 public class ProdutoJpaGateway implements ProdutoGateway {
@@ -26,6 +28,23 @@ public class ProdutoJpaGateway implements ProdutoGateway {
         );
 
         return produtoRepository.save(produtoEntity).getId();
+
+    }
+
+    @Override
+    public Produto recuperaPorSku(String sku) {
+
+        ProdutoEntity produtoEntity = produtoRepository.findBySku(sku);
+
+        return new Produto(
+                produtoEntity.getId(),
+                produtoEntity.getSku(),
+                produtoEntity.getNome(),
+                produtoEntity.getDescricao(),
+                produtoEntity.getPreco(),
+                produtoEntity.getCriadoEm(),
+                produtoEntity.getAtualizadoEm()
+        );
 
     }
 }

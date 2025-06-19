@@ -30,6 +30,16 @@ public class Produto {
         this.sku = UUID.randomUUID().toString();
     }
 
+    public Produto(Long id, String sku, String nome, String descricao, BigDecimal preco, LocalDateTime criadoEm, LocalDateTime atualizadoEm) {
+        this.id = id;
+        this.sku = sku;
+        this.nome = nome;
+        this.descricao = descricao;
+        this.preco = preco;
+        this.criadoEm = criadoEm;
+        this.atualizadoEm = atualizadoEm;
+    }
+
     public Long getId() {
         return id;
     }

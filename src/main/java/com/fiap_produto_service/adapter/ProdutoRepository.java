@@ -5,4 +5,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface ProdutoRepository extends JpaRepository<ProdutoEntity, Long> {
+    ProdutoEntity findBySku(String sku);
 }

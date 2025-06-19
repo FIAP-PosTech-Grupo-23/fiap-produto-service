@@ -1,4 +1,4 @@
-package com.fiap_produto_service.adapter;
+package com.fiap_produto_service.adapter.dto;
 
 import java.math.BigDecimal;
 

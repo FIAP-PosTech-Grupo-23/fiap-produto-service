@@ -1,5 +1,7 @@
-package com.fiap_produto_service.adapter;
+package com.fiap_produto_service.adapter.controller;
 
+import com.fiap_produto_service.adapter.dto.ProdutoCriacaoJson;
+import com.fiap_produto_service.adapter.dto.ProdutoJson;
 import com.fiap_produto_service.core.domain.Produto;
 import com.fiap_produto_service.core.usecase.ProdutoCriaUseCase;
 import com.fiap_produto_service.core.usecase.ProdutoRecuperaPorSkuUseCase;

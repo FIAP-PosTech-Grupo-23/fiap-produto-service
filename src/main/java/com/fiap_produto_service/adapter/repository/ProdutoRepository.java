@@ -1,5 +1,6 @@
-package com.fiap_produto_service.adapter;
+package com.fiap_produto_service.adapter.repository;
 
+import com.fiap_produto_service.adapter.entity.ProdutoEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

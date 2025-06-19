@@ -1,4 +1,4 @@
-package com.fiap_produto_service.adapter;
+package com.fiap_produto_service.adapter.entity;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;

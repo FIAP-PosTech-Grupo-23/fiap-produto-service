@@ -4,12 +4,12 @@ services:
       context: .
       dockerfile: Dockerfile
     ports:
-      - "8083:8083"
+      - "8082:8082"
     depends_on:
       postgresql:
         condition: service_healthy
     environment:
-      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgresql:5432/cliente
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgresql:5432/produto
       - SPRING_DATASOURCE_USERNAME=postgres
       - SPRING_DATASOURCE_PASSWORD=postgres
     networks:
@@ -19,7 +19,7 @@ services:
     ports:
       - "5432:5432"
     environment:
-      - POSTGRES_DB=cliente
+      - POSTGRES_DB=produto
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
     volumes:

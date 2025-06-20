@@ -5,11 +5,14 @@ import com.fiap_produto_service.adapter.dto.ProdutoJson;
 import com.fiap_produto_service.core.domain.Produto;
 import com.fiap_produto_service.core.usecase.ProdutoAtualizaUseCase;
 import com.fiap_produto_service.core.usecase.ProdutoCriaUseCase;
+import com.fiap_produto_service.core.usecase.ProdutoDeletaUseCase;
 import com.fiap_produto_service.core.usecase.ProdutoRecuperaPorSkuUseCase;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.UUID;
 
 @AllArgsConstructor
 @RestController
@@ -19,6 +22,7 @@ public class ProdutoController {
     private final ProdutoCriaUseCase produtoCriaUseCase;
     private final ProdutoRecuperaPorSkuUseCase produtoRecuperaPorSkuUseCase;
     private final ProdutoAtualizaUseCase produtoAtualizaUseCase;
+    private final ProdutoDeletaUseCase produtoDeletaUseCase;
 
     @PostMapping
     public ResponseEntity<Long> criaProduto(@RequestBody ProdutoCriacaoJson produtoCriacaoJson) {
@@ -35,6 +39,12 @@ public class ProdutoController {
     public ResponseEntity<ProdutoJson> atualizaProduto(@RequestBody ProdutoJson produtoJson) {
         return ResponseEntity.ok()
                 .body(criaProdutoJson(produtoAtualizaUseCase.atualiza(atualizaProdutoDomain(produtoJson))));
+    }
+
+    @DeleteMapping("/{sku}")
+    public ResponseEntity<Void> deletaProduto(@PathVariable String sku) {
+        produtoDeletaUseCase.deleta(sku);
+        return ResponseEntity.noContent().build();
     }
 
     private Produto atualizaProdutoDomain(ProdutoJson produtoJson) {

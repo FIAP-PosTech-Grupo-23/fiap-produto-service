@@ -76,4 +76,12 @@ public class ProdutoJpaGateway implements ProdutoGateway {
         );
 
     }
+
+    @Override
+    @Transactional
+    public void deleta(String sku) {
+
+        produtoRepository.deleteBySku(sku);
+
+    }
 }

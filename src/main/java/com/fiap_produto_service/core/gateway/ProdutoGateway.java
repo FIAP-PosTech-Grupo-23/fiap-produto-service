@@ -11,4 +11,6 @@ public interface ProdutoGateway {
     Produto recuperaPorSku(String sku);
 
     Produto atualiza(String sku, String nome, String descrição, BigDecimal preco, LocalDateTime dataAtualizacao);
+
+    void deleta(String sku);
 }

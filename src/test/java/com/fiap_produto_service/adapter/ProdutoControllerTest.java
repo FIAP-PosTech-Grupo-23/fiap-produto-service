@@ -2,7 +2,9 @@ package com.fiap_produto_service.adapter;
 
 import com.fiap_produto_service.adapter.controller.ProdutoController;
 import com.fiap_produto_service.adapter.dto.ProdutoCriacaoJson;
+import com.fiap_produto_service.adapter.dto.ProdutoJson;
 import com.fiap_produto_service.core.domain.Produto;
+import com.fiap_produto_service.core.usecase.ProdutoAtualizaUseCase;
 import com.fiap_produto_service.core.usecase.ProdutoCriaUseCase;
 import com.fiap_produto_service.core.usecase.ProdutoRecuperaPorSkuUseCase;
 import org.junit.jupiter.api.BeforeEach;
@@ -30,11 +32,13 @@ class ProdutoControllerTest {
     @Mock
     private ProdutoRecuperaPorSkuUseCase produtoRecuperaPorSkuUseCase;
 
+    @Mock
+    private ProdutoAtualizaUseCase produtoAtualizaUseCase;
+
     @BeforeEach
     void setUp() {
         MockitoAnnotations.openMocks(this);
     }
-
 
     @Test
     void testDeveCriarProdutoComSucesso() {
@@ -74,6 +78,41 @@ class ProdutoControllerTest {
 
         // Assert
         verify(produtoRecuperaPorSkuUseCase, times(1)).recuperaPorSku("123");
+
+    }
+
+    @Test
+    void testDeveAtualizarProduto() {
+
+        // Arrange
+        ProdutoJson produtoJson = new ProdutoJson(
+                1L,
+                "123",
+                "Calça",
+                "Calça jeans azul com cintura alta",
+                BigDecimal.valueOf(199.90),
+                LocalDateTime.now(),
+                LocalDateTime.now()
+
+        );
+
+        Produto produto = new Produto(
+                1L,
+                "123",
+                "Calça",
+                "Calça jeans azul com cintura alta",
+                BigDecimal.valueOf(199.90),
+                LocalDateTime.now(),
+                LocalDateTime.now()
+        );
+
+        when(produtoAtualizaUseCase.atualiza(any(Produto.class))).thenReturn(produto);
+
+        // Act
+        produtoController.atualizaProduto(produtoJson);
+
+        // Assert
+        verify(produtoAtualizaUseCase).atualiza(any(Produto.class));
 
     }
 

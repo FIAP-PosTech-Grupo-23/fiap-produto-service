@@ -102,6 +102,32 @@ class ProdutoJpaGatewayTest {
         verify(produtoRepository, times(1)).findBySku(sku);
     }
 
+    @Test
+    void testDeveAtualizarProdutoComSucesso() {
+        // Arrange
+        ProdutoEntity produtoEntity = new ProdutoEntity(
+                "123",
+                "Calça",
+                "Calça jeans azul com cintura alta",
+                BigDecimal.valueOf(199.90),
+                LocalDateTime.now(),
+                LocalDateTime.now()
 
+        );
 
+        when(produtoRepository.findBySku(produtoEntity.getSku())).thenReturn(Optional.of(produtoEntity));
+
+        // Act
+        Produto produto = produtoJpaGateway.atualiza(
+                "123",
+                "Calça",
+                "Calça jeans azul com cintura alta",
+                BigDecimal.valueOf(200.00),
+                LocalDateTime.now());
+
+        // Assert
+        assertNotNull(produto);
+        assertEquals(BigDecimal.valueOf(200.00), produto.getPreco());
+
+    }
 }

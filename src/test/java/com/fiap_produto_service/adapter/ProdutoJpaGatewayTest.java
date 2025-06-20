@@ -12,6 +12,7 @@ import org.springframework.test.util.ReflectionTestUtils;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -73,7 +74,7 @@ class ProdutoJpaGatewayTest {
     }
 
     @Test
-    void testDeveRetornarProdutoAoEncontrarSku() {
+    void testDeveRetornarProdutoAoEncontrarSkus() {
         // Arrange
         String sku = "123";
         ProdutoEntity produtoEntity = new ProdutoEntity(
@@ -86,20 +87,20 @@ class ProdutoJpaGatewayTest {
         );
         ReflectionTestUtils.setField(produtoEntity, "id", 1L);
 
-        when(produtoRepository.findBySku(sku)).thenReturn(Optional.of(produtoEntity));
+        when(produtoRepository.findBySkuIn(List.of(sku))).thenReturn(List.of(produtoEntity));
 
         // Act
-        Produto produto = produtoJpaGateway.recuperaPorSku(sku);
+        List<Produto> produto = produtoJpaGateway.recuperaPorSkus(List.of(sku));
 
         // Assert
         assertNotNull(produto);
-        assertEquals(produtoEntity.getId(), produto.getId());
-        assertEquals(produtoEntity.getSku(), produto.getSku());
-        assertEquals(produtoEntity.getNome(), produto.getNome());
-        assertEquals(produtoEntity.getDescricao(), produto.getDescricao());
-        assertEquals(produtoEntity.getPreco(), produto.getPreco());
+        assertEquals(produtoEntity.getId(), produto.get(0).getId());
+        assertEquals(produtoEntity.getSku(), produto.get(0).getSku());
+        assertEquals(produtoEntity.getNome(), produto.get(0).getNome());
+        assertEquals(produtoEntity.getDescricao(), produto.get(0).getDescricao());
+        assertEquals(produtoEntity.getPreco(), produto.get(0).getPreco());
 
-        verify(produtoRepository, times(1)).findBySku(sku);
+        verify(produtoRepository, times(1)).findBySkuIn(List.of(sku));
     }
 
     @Test

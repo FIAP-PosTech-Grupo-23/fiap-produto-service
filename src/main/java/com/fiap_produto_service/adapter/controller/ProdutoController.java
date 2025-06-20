@@ -6,13 +6,13 @@ import com.fiap_produto_service.core.domain.Produto;
 import com.fiap_produto_service.core.usecase.ProdutoAtualizaUseCase;
 import com.fiap_produto_service.core.usecase.ProdutoCriaUseCase;
 import com.fiap_produto_service.core.usecase.ProdutoDeletaUseCase;
-import com.fiap_produto_service.core.usecase.ProdutoRecuperaPorSkuUseCase;
+import com.fiap_produto_service.core.usecase.ProdutoRecuperaPorSkusUseCase;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.UUID;
+import java.util.List;
 
 @AllArgsConstructor
 @RestController
@@ -20,7 +20,7 @@ import java.util.UUID;
 public class ProdutoController {
 
     private final ProdutoCriaUseCase produtoCriaUseCase;
-    private final ProdutoRecuperaPorSkuUseCase produtoRecuperaPorSkuUseCase;
+    private final ProdutoRecuperaPorSkusUseCase produtoRecuperaPorSkusUseCase;
     private final ProdutoAtualizaUseCase produtoAtualizaUseCase;
     private final ProdutoDeletaUseCase produtoDeletaUseCase;
 
@@ -31,8 +31,8 @@ public class ProdutoController {
     }
 
     @GetMapping("/{sku}")
-    public ResponseEntity<ProdutoJson> recuperaPorSku(@PathVariable String sku) {
-        return ResponseEntity.ok(criaProdutoJson(produtoRecuperaPorSkuUseCase.recuperaPorSku(sku)));
+    public ResponseEntity<List<ProdutoJson>> recuperaProdutosPorSkus(@PathVariable List<String> skus) {
+        return ResponseEntity.ok(criaProdutoJson(produtoRecuperaPorSkusUseCase.recuperaPorSkus(skus)));
     }
 
     @PatchMapping()
@@ -64,8 +64,22 @@ public class ProdutoController {
                 produto.getCriadoEm(),
                 produto.getAtualizadoEm()
         );
+    }
+
+    private List<ProdutoJson> criaProdutoJson(List<Produto> produtos) {
+
+        return produtos.stream().map(produto -> new ProdutoJson(
+                produto.getId(),
+                produto.getSku(),
+                produto.getNome(),
+                produto.getDescricao(),
+                produto.getPreco(),
+                produto.getCriadoEm(),
+                produto.getAtualizadoEm())).toList();
 
     }
+
+
 
     private Produto criaProdutoDomain(ProdutoCriacaoJson produtoCriacaoJson) {
         return new Produto(produtoCriacaoJson.nome(), produtoCriacaoJson.descricao(), produtoCriacaoJson.preco());

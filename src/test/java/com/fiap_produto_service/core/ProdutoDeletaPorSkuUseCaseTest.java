@@ -2,7 +2,6 @@ package com.fiap_produto_service.core;
 
 import com.fiap_produto_service.core.gateway.ProdutoGateway;
 import com.fiap_produto_service.core.usecase.ProdutoDeletaUseCaseImpl;
-import com.fiap_produto_service.core.usecase.ProdutoRecuperaPorSkuUseCaseImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;

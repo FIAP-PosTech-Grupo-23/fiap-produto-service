@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -36,20 +37,22 @@ public class ProdutoJpaGateway implements ProdutoGateway {
     }
 
     @Override
-    public Produto recuperaPorSku(String sku) {
+    public List<Produto> recuperaPorSkus(List<String> skus) {
 
-        ProdutoEntity produtoEntity = produtoRepository.findBySku(sku)
-                .orElseThrow(() -> new ProdutoNaoEncontradoException("Produto nao encontrado"));
+        List<ProdutoEntity> produtosEntity = produtoRepository.findBySkuIn(skus);
 
-        return new Produto(
-                produtoEntity.getId(),
-                produtoEntity.getSku(),
-                produtoEntity.getNome(),
-                produtoEntity.getDescricao(),
-                produtoEntity.getPreco(),
-                produtoEntity.getCriadoEm(),
-                produtoEntity.getAtualizadoEm()
-        );
+        return produtosEntity.stream()
+                .map(produtoEntity ->
+                        new Produto(
+                                produtoEntity.getId(),
+                                produtoEntity.getSku(),
+                                produtoEntity.getNome(),
+                                produtoEntity.getDescricao(),
+                                produtoEntity.getPreco(),
+                                produtoEntity.getCriadoEm(),
+                                produtoEntity.getAtualizadoEm()
+                        )
+                ).toList();
 
     }
 

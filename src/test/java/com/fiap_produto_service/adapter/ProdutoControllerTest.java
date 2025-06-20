@@ -7,7 +7,7 @@ import com.fiap_produto_service.core.domain.Produto;
 import com.fiap_produto_service.core.usecase.ProdutoAtualizaUseCase;
 import com.fiap_produto_service.core.usecase.ProdutoCriaUseCase;
 import com.fiap_produto_service.core.usecase.ProdutoDeletaUseCase;
-import com.fiap_produto_service.core.usecase.ProdutoRecuperaPorSkuUseCase;
+import com.fiap_produto_service.core.usecase.ProdutoRecuperaPorSkusUseCase;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -17,6 +17,7 @@ import org.springframework.http.ResponseEntity;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
@@ -31,7 +32,7 @@ class ProdutoControllerTest {
     private ProdutoCriaUseCase produtoCriaUseCase;
 
     @Mock
-    private ProdutoRecuperaPorSkuUseCase produtoRecuperaPorSkuUseCase;
+    private ProdutoRecuperaPorSkusUseCase produtoRecuperaPorSkusUseCase;
 
     @Mock
     private ProdutoAtualizaUseCase produtoAtualizaUseCase;
@@ -75,13 +76,13 @@ class ProdutoControllerTest {
                 LocalDateTime.now()
         );
         when(produtoCriaUseCase.criaProduto(any(Produto.class))).thenReturn(10L);
-        when(produtoRecuperaPorSkuUseCase.recuperaPorSku(any())).thenReturn(produto);
+        when(produtoRecuperaPorSkusUseCase.recuperaPorSkus(any())).thenReturn(List.of(produto));
 
         // Act
-        produtoController.recuperaPorSku("123");
+        produtoController.recuperaProdutosPorSkus(List.of("123"));
 
         // Assert
-        verify(produtoRecuperaPorSkuUseCase, times(1)).recuperaPorSku("123");
+        verify(produtoRecuperaPorSkusUseCase, times(1)).recuperaPorSkus(List.of("123"));
 
     }
 

@@ -1,20 +1,22 @@
 package com.fiap_produto_service.core;
 
 import com.fiap_produto_service.core.gateway.ProdutoGateway;
-import com.fiap_produto_service.core.usecase.ProdutoRecuperaPorSkuUseCaseImpl;
+import com.fiap_produto_service.core.usecase.ProdutoRecuperaPorSkusUseCaseImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
+import java.util.List;
+
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
-class ProdutoRecuperaPorSkuUseCaseTest {
+class ProdutoRecuperaPorSkusUseCaseTest {
 
     @InjectMocks
-    private ProdutoRecuperaPorSkuUseCaseImpl produtoRecuperaPorSkuUseCase;
+    private ProdutoRecuperaPorSkusUseCaseImpl produtoRecuperaPorSkuUseCase;
 
     @Mock
     private ProdutoGateway produtoGateway;
@@ -29,10 +31,10 @@ class ProdutoRecuperaPorSkuUseCaseTest {
     void testDeveRecuperarProdutoComSucessoPorSku() {
 
         // Act
-        produtoRecuperaPorSkuUseCase.recuperaPorSku("123");
+        produtoRecuperaPorSkuUseCase.recuperaPorSkus(List.of("123"));
 
         // Assert
-        verify(produtoGateway, times(1)).recuperaPorSku("123");
+        verify(produtoGateway, times(1)).recuperaPorSkus(List.of("123"));
 
     }
 

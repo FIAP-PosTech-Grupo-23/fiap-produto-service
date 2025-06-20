@@ -5,16 +5,18 @@ import com.fiap_produto_service.core.gateway.ProdutoGateway;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
-public class ProdutoRecuperaPorSkuUseCaseImpl implements ProdutoRecuperaPorSkuUseCase {
+public class ProdutoRecuperaPorSkusUseCaseImpl implements ProdutoRecuperaPorSkusUseCase {
 
     private final ProdutoGateway produtoGateway;
 
     @Override
-    public Produto recuperaPorSku(String sku) {
+    public List<Produto> recuperaPorSkus(List<String> skus) {
 
-        return produtoGateway.recuperaPorSku(sku);
+        return produtoGateway.recuperaPorSkus(skus);
 
     }
 }

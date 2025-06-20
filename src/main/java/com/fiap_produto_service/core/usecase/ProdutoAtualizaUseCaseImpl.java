@@ -1,0 +1,20 @@
+package com.fiap_produto_service.core.usecase;
+
+import com.fiap_produto_service.core.domain.Produto;
+import com.fiap_produto_service.core.gateway.ProdutoGateway;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
+
+@Service
+@RequiredArgsConstructor
+public class ProdutoAtualizaUseCaseImpl implements ProdutoAtualizaUseCase {
+
+    private final ProdutoGateway produtoGateway;
+
+    @Override
+    public Produto atualiza(Produto produto) {
+
+        return produtoGateway.atualiza(produto);
+
+    }
+}

@@ -6,4 +6,6 @@ public interface ProdutoGateway {
     Long criar(Produto produto);
 
     Produto recuperaPorSku(String sku);
+
+    Produto atualiza(Produto produto);
 }

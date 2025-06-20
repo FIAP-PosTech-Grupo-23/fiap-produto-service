@@ -40,6 +40,13 @@ public class Produto {
         this.atualizadoEm = atualizadoEm;
     }
 
+    public Produto(String sku, String nome, String descricao, BigDecimal preco) {
+        this.sku = sku;
+        this.nome = nome;
+        this.descricao = descricao;
+        this.preco = preco;
+    }
+
     public Long getId() {
         return id;
     }

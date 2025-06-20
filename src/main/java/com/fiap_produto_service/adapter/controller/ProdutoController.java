@@ -3,6 +3,7 @@ package com.fiap_produto_service.adapter.controller;
 import com.fiap_produto_service.adapter.dto.ProdutoCriacaoJson;
 import com.fiap_produto_service.adapter.dto.ProdutoJson;
 import com.fiap_produto_service.core.domain.Produto;
+import com.fiap_produto_service.core.usecase.ProdutoAtualizaUseCase;
 import com.fiap_produto_service.core.usecase.ProdutoCriaUseCase;
 import com.fiap_produto_service.core.usecase.ProdutoRecuperaPorSkuUseCase;
 import lombok.AllArgsConstructor;
@@ -17,6 +18,7 @@ public class ProdutoController {
 
     private final ProdutoCriaUseCase produtoCriaUseCase;
     private final ProdutoRecuperaPorSkuUseCase produtoRecuperaPorSkuUseCase;
+    private final ProdutoAtualizaUseCase produtoAtualizaUseCase;
 
     @PostMapping
     public ResponseEntity<Long> criaProduto(@RequestBody ProdutoCriacaoJson produtoCriacaoJson) {
@@ -27,6 +29,19 @@ public class ProdutoController {
     @GetMapping("/{sku}")
     public ResponseEntity<ProdutoJson> recuperaPorSku(@PathVariable String sku) {
         return ResponseEntity.ok(criaProdutoJson(produtoRecuperaPorSkuUseCase.recuperaPorSku(sku)));
+    }
+
+    @PatchMapping()
+    public ResponseEntity<ProdutoJson> atualizaProduto(@RequestBody ProdutoJson produtoJson) {
+        return ResponseEntity.ok()
+                .body(criaProdutoJson(produtoAtualizaUseCase.atualiza(atualizaProdutoDomain(produtoJson))));
+    }
+
+    private Produto atualizaProdutoDomain(ProdutoJson produtoJson) {
+        return new Produto(produtoJson.sku(),
+                produtoJson.nome(),
+                produtoJson.descricao(),
+                produtoJson.preco());
     }
 
     private ProdutoJson criaProdutoJson(Produto produto) {

@@ -24,9 +24,6 @@ public class Produto {
         this.nome = nome;
         this.descricao = descricao;
         this.preco = preco;
-        LocalDateTime agora = LocalDateTime.now();
-        this.criadoEm = agora;
-        this.atualizadoEm = agora;
         this.sku = UUID.randomUUID().toString();
     }
 

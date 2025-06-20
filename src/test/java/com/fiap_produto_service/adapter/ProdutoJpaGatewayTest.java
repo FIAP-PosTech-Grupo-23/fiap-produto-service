@@ -59,7 +59,13 @@ class ProdutoJpaGatewayTest {
         when(produtoRepository.save(any())).thenReturn(produtoEntity);
 
         // Act
-        Long id = produtoJpaGateway.criar(produto);
+        Long id = produtoJpaGateway.criar(
+                "123",
+                "Calça",
+                "Calça jeans azul com cintura alta",
+                BigDecimal.valueOf(199.90),
+                LocalDateTime.now(),
+                LocalDateTime.now());
 
         // Assert
         verify(produtoRepository, times(1)).save(any());

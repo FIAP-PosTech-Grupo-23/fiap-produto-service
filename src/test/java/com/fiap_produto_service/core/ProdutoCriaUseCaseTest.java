@@ -51,7 +51,7 @@ class ProdutoCriaUseCaseTest {
         produtoCriaUseCase.criaProduto(produto);
 
         // Assert
-        verify(produtoGateway, times(1)).criar(produto);
+        verify(produtoGateway, times(1)).criar(any(), any(), any(), any(), any(), any());
 
 
     }

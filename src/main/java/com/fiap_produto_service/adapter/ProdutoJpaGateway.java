@@ -9,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @Service
@@ -19,15 +20,15 @@ public class ProdutoJpaGateway implements ProdutoGateway {
 
     @Transactional
     @Override
-    public Long criar(Produto produto) {
+    public Long criar(String sku, String nome, String descricao, BigDecimal preco, LocalDateTime dataCriacao, LocalDateTime dataAtualizacao) {
 
         ProdutoEntity produtoEntity = new ProdutoEntity(
-                produto.getSku(),
-                produto.getNome(),
-                produto.getDescricao(),
-                produto.getPreco(),
-                produto.getCriadoEm(),
-                produto.getAtualizadoEm()
+                sku,
+                nome,
+                descricao,
+                preco,
+                dataCriacao,
+                dataAtualizacao
         );
 
         return produtoRepository.save(produtoEntity).getId();
@@ -54,15 +55,15 @@ public class ProdutoJpaGateway implements ProdutoGateway {
 
     @Override
     @Transactional
-    public Produto atualiza(Produto produto) {
+    public Produto atualiza(String sku, String nome, String descricao, BigDecimal preco, LocalDateTime dataAtualizacao) {
 
-        ProdutoEntity produtoEntity = produtoRepository.findBySku(produto.getSku())
+        ProdutoEntity produtoEntity = produtoRepository.findBySku(sku)
                 .orElseThrow(() -> new ProdutoNaoEncontradoException("Produto nao encontrado"));
 
-        produtoEntity.setNome(produto.getNome());
-        produtoEntity.setDescricao(produto.getDescricao());
-        produtoEntity.setPreco(produto.getPreco());
-        produtoEntity.setAtualizadoEm(LocalDateTime.now());
+        produtoEntity.setNome(nome);
+        produtoEntity.setDescricao(descricao);
+        produtoEntity.setPreco(preco);
+        produtoEntity.setAtualizadoEm(dataAtualizacao);
 
         return new Produto(
                 produtoEntity.getId(),

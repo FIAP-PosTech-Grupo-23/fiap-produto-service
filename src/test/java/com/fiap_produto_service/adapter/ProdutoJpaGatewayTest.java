@@ -130,4 +130,16 @@ class ProdutoJpaGatewayTest {
         assertEquals(BigDecimal.valueOf(200.00), produto.getPreco());
 
     }
+
+    @Test
+    void testDeveDeletarProdutoAoEncontrarSku() {
+        // Arrange
+        String sku = "123";
+
+        // Act
+        produtoJpaGateway.deleta(sku);
+
+        // Assert
+        verify(produtoRepository, times(1)).deleteBySku(sku);
+    }
 }

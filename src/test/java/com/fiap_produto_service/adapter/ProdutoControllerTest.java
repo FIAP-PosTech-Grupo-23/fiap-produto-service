@@ -6,6 +6,7 @@ import com.fiap_produto_service.adapter.dto.ProdutoJson;
 import com.fiap_produto_service.core.domain.Produto;
 import com.fiap_produto_service.core.usecase.ProdutoAtualizaUseCase;
 import com.fiap_produto_service.core.usecase.ProdutoCriaUseCase;
+import com.fiap_produto_service.core.usecase.ProdutoDeletaUseCase;
 import com.fiap_produto_service.core.usecase.ProdutoRecuperaPorSkuUseCase;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -34,6 +35,9 @@ class ProdutoControllerTest {
 
     @Mock
     private ProdutoAtualizaUseCase produtoAtualizaUseCase;
+
+    @Mock
+    private ProdutoDeletaUseCase produtoDeletaUseCase;
 
     @BeforeEach
     void setUp() {
@@ -113,6 +117,17 @@ class ProdutoControllerTest {
 
         // Assert
         verify(produtoAtualizaUseCase).atualiza(any(Produto.class));
+
+    }
+
+    @Test
+    void testDeletarProdutoPorSku() {
+
+        // Act
+        produtoController.deletaProduto("123");
+
+        // Assert
+        verify(produtoDeletaUseCase, times(1)).deleta("123");
 
     }
 

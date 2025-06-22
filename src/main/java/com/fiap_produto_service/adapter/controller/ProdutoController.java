@@ -30,8 +30,8 @@ public class ProdutoController {
         return ResponseEntity.status(HttpStatus.CREATED).body(id);
     }
 
-    @GetMapping("/{sku}")
-    public ResponseEntity<List<ProdutoJson>> recuperaProdutosPorSkus(@PathVariable List<String> skus) {
+    @PostMapping("/listar")
+    public ResponseEntity<List<ProdutoJson>> recuperaProdutosPorSkus(@RequestBody List<String> skus) {
         return ResponseEntity.ok(criaProdutoJson(produtoRecuperaPorSkusUseCase.recuperaPorSkus(skus)));
     }
 

@@ -24,7 +24,6 @@ public class Produto {
         this.nome = nome;
         this.descricao = descricao;
         this.preco = preco;
-        this.sku = UUID.randomUUID().toString();
     }
 
     public Produto(Long id, String sku, String nome, String descricao, BigDecimal preco, LocalDateTime criadoEm, LocalDateTime atualizadoEm) {

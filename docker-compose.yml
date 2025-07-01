@@ -35,5 +35,4 @@ volumes:
   postgres-data:
 networks:
   springboot-postgres-network:
-    external: true
     name: fiap-network

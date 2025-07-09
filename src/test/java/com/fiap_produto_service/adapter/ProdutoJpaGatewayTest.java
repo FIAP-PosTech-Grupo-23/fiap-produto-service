@@ -60,7 +60,7 @@ class ProdutoJpaGatewayTest {
         when(produtoRepository.save(any())).thenReturn(produtoEntity);
 
         // Act
-        Long id = produtoJpaGateway.criar(
+        String sku = produtoJpaGateway.criar(
                 "123",
                 "Calça",
                 "Calça jeans azul com cintura alta",
@@ -70,7 +70,7 @@ class ProdutoJpaGatewayTest {
 
         // Assert
         verify(produtoRepository, times(1)).save(any());
-        assertEquals(1L, id);
+        assertEquals("123", sku);
     }
 
     @Test

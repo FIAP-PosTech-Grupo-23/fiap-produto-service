@@ -25,9 +25,9 @@ public class ProdutoController {
     private final ProdutoDeletaUseCase produtoDeletaUseCase;
 
     @PostMapping
-    public ResponseEntity<Long> criaProduto(@RequestBody ProdutoCriacaoJson produtoCriacaoJson) {
-        Long id = produtoCriaUseCase.criaProduto(criaProdutoDomain(produtoCriacaoJson));
-        return ResponseEntity.status(HttpStatus.CREATED).body(id);
+    public ResponseEntity<String> criaProduto(@RequestBody ProdutoCriacaoJson produtoCriacaoJson) {
+        String sku = produtoCriaUseCase.criaProduto(criaProdutoDomain(produtoCriacaoJson));
+        return ResponseEntity.status(HttpStatus.CREATED).body(sku);
     }
 
     @PostMapping("/listar")

@@ -21,7 +21,7 @@ public class ProdutoJpaGateway implements ProdutoGateway {
 
     @Transactional
     @Override
-    public Long criar(String sku, String nome, String descricao, BigDecimal preco, LocalDateTime dataCriacao, LocalDateTime dataAtualizacao) {
+    public String criar(String sku, String nome, String descricao, BigDecimal preco, LocalDateTime dataCriacao, LocalDateTime dataAtualizacao) {
 
         ProdutoEntity produtoEntity = new ProdutoEntity(
                 sku,
@@ -32,7 +32,7 @@ public class ProdutoJpaGateway implements ProdutoGateway {
                 dataAtualizacao
         );
 
-        return produtoRepository.save(produtoEntity).getId();
+        return produtoRepository.save(produtoEntity).getSku();
 
     }
 

@@ -17,7 +17,7 @@ services:
   postgresql:
     image: postgres:15-alpine
     ports:
-      - "5433:5432"
+      - "5432:5432"
     environment:
       - POSTGRES_DB=produto
       - POSTGRES_USER=postgres
@@ -27,7 +27,7 @@ services:
     networks:
       - springboot-postgres-network
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready"]
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
       retries: 10
       interval: 10s
       timeout: 5s

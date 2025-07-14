@@ -50,14 +50,23 @@ class ProdutoControllerTest {
 
         // Arrange
         ProdutoCriacaoJson json = new ProdutoCriacaoJson("Caneta", "Azul", new BigDecimal("3.00"));
-        when(produtoCriaUseCase.criaProduto(any(Produto.class))).thenReturn("123");
+        Produto produto = new Produto(
+                1L,
+                "123",
+                "Calça",
+                "Calça jeans azul com cintura alta",
+                BigDecimal.valueOf(199.90),
+                LocalDateTime.now(),
+                LocalDateTime.now()
+        );
+        when(produtoCriaUseCase.criaProduto(any(Produto.class))).thenReturn(produto);
 
         // Act
-        ResponseEntity<String> response = produtoController.criaProduto(json);
+        ResponseEntity<ProdutoJson> response = produtoController.criaProduto(json);
 
         // Assert
         assertThat(response.getStatusCodeValue()).isEqualTo(201);
-        assertThat(response.getBody()).isEqualTo("123");
+        assertThat(response.getBody()).isNotNull();
         verify(produtoCriaUseCase).criaProduto(any(Produto.class));
 
     }
@@ -75,7 +84,7 @@ class ProdutoControllerTest {
                 LocalDateTime.now(),
                 LocalDateTime.now()
         );
-        when(produtoCriaUseCase.criaProduto(any(Produto.class))).thenReturn("123");
+        when(produtoCriaUseCase.criaProduto(any(Produto.class))).thenReturn(produto);
         when(produtoRecuperaPorSkusUseCase.recuperaPorSkus(any())).thenReturn(List.of(produto));
 
         // Act

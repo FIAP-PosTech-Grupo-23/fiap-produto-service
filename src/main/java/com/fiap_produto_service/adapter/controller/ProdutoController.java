@@ -25,9 +25,17 @@ public class ProdutoController {
     private final ProdutoDeletaUseCase produtoDeletaUseCase;
 
     @PostMapping
-    public ResponseEntity<String> criaProduto(@RequestBody ProdutoCriacaoJson produtoCriacaoJson) {
-        String sku = produtoCriaUseCase.criaProduto(criaProdutoDomain(produtoCriacaoJson));
-        return ResponseEntity.status(HttpStatus.CREATED).body(sku);
+    public ResponseEntity<ProdutoJson> criaProduto(@RequestBody ProdutoCriacaoJson produtoCriacaoJson) {
+        Produto produto = produtoCriaUseCase.criaProduto(criaProdutoDomain(produtoCriacaoJson));
+        return ResponseEntity.status(HttpStatus.CREATED).body(new ProdutoJson(
+                produto.getId(),
+                produto.getSku(),
+                produto.getNome(),
+                produto.getDescricao(),
+                produto.getPreco(),
+                produto.getCriadoEm(),
+                produto.getAtualizadoEm()
+        ));
     }
 
     @PostMapping("/listar")

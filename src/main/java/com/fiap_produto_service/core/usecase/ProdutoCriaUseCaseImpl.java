@@ -18,7 +18,7 @@ public class ProdutoCriaUseCaseImpl implements ProdutoCriaUseCase {
     private static final SecureRandom RANDOM = new SecureRandom();
 
     @Override
-    public String criaProduto(Produto produto) {
+    public Produto criaProduto(Produto produto) {
 
         String sku = geraSku();
         String nome = produto.getNome();
